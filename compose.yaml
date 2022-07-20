@@ -1,0 +1,6 @@
+services:
+  admin-frontend:
+    build: "."
+    container_name: "admin-frontend"
+    ports:
+      - "3000:80"
