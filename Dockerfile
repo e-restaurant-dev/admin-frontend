@@ -2,11 +2,12 @@ FROM node:18-alpine as build
 
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
-COPY package*.json ./
-RUN npm install
+COPY package.json ./
+COPY yarn.lock ./
+RUN yarn install
 COPY . ./
-RUN npm run build
-RUN npm cache clean --force
+RUN yarn build
+RUN yarn cache clean
 
 FROM nginx:alpine
 COPY --from=build /app/dist /usr/share/nginx/html
